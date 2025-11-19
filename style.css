@@ -487,6 +487,20 @@ section {
         width: 200px;
         height: 200px;
         margin: 0 auto var(--spacing-lg);
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .founder-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all var(--transition-normal);
+    }
+    
+    .founder-avatar:hover .founder-photo {
+        transform: scale(1.05);
+        filter: brightness(1.05);
     }
     
     .founder-info {
@@ -1111,10 +1125,24 @@ section {
     justify-content: center;
     transform: rotate(3deg);
     transition: all var(--transition-normal);
+    overflow: hidden;
+    position: relative;
 }
 
 .founder-avatar:hover {
     transform: rotate(0deg) scale(1.05);
+}
+
+.founder-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all var(--transition-normal);
+}
+
+.founder-avatar:hover .founder-photo {
+    transform: scale(1.1);
+    filter: brightness(1.05);
 }
 
 .avatar-placeholder {
