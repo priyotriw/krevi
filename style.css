@@ -311,6 +311,32 @@ section {
 
 /* MOBILE - Clean & Natural Layout */
 @media (max-width: 768px) {
+    /* Prevent horizontal overflow */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
+    /* Ensure all elements stay within viewport */
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Images and media fix */
+    img, video, iframe {
+        max-width: 100% !important;
+        height: auto !important;
+        overflow: hidden;
+    }
+    
+    /* Text elements fix */
+    h1, h2, h3, h4, h5, h6, p, span, div {
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
     /* Override ALL desktop grid layouts */
     .hero-container,
     .about-content,
@@ -322,7 +348,9 @@ section {
     
     /* Container & Spacing */
     .container {
-        padding: 0 var(--spacing-container-mobile);
+        padding: 0 var(--spacing-sm);
+        max-width: 100vw;
+        overflow-x: hidden;
     }
     
     /* Section Spacing */
@@ -423,12 +451,34 @@ section {
         transform: translateY(-1px);
     }
     
+    .nav-container {
+        padding: 0 var(--spacing-sm) !important; /* Mobile padding */
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    
+    /* Mobile logo optimization */
+    .logo {
+        flex-shrink: 1; /* Allow logo to shrink if needed */
+        min-width: 0; /* Allow logo to shrink */
+    }
+    
+    .logo-box {
+        font-size: var(--font-size-xs) !important; /* Smaller font */
+        padding: 2px var(--spacing-xs) !important; /* Smaller padding */
+    }
+    
+    .logo-text {
+        font-size: var(--font-size-xs) !important; /* Smaller font */
+    }
+    
     .hamburger {
         display: flex;
+        flex-shrink: 0; /* Prevent hamburger from shrinking */
     }
     
     .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate(4px, 4px); /* Adjusted for smaller size */
     }
     
     .hamburger.active span:nth-child(2) {
@@ -436,7 +486,7 @@ section {
     }
     
     .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
+        transform: rotate(-45deg) translate(5px, -5px); /* Adjusted for smaller size */
     }
     
     /* Hero Section */
@@ -481,6 +531,8 @@ section {
         grid-template-columns: 1fr !important;
         gap: var(--spacing-xl) !important;
         text-align: center;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .founder-avatar {
@@ -489,6 +541,7 @@ section {
         margin: 0 auto var(--spacing-lg);
         overflow: hidden;
         position: relative;
+        max-width: 100%;
     }
     
     .founder-photo {
@@ -505,6 +558,8 @@ section {
     
     .founder-info {
         text-align: center;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .founder-achievements {
@@ -536,10 +591,14 @@ section {
     .projects-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-lg);
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .project-card {
         margin-bottom: var(--spacing-md);
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .project-card.featured {
@@ -552,6 +611,8 @@ section {
     
     .project-content {
         padding: var(--spacing-lg);
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .btn-project {
@@ -584,24 +645,29 @@ section {
     /* Promo Section */
     .promo-content {
         text-align: center;
-        padding: 0 var(--spacing-md); /* Tambah horizontal padding */
-        max-width: none; /* Override desktop max-width */
+        padding: 0 var(--spacing-sm); /* Tambah horizontal padding */
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .promo-title {
         font-size: var(--font-size-h2-mobile);
         line-height: 1.4;
         margin-bottom: var(--spacing-lg);
-        padding: 0 var(--spacing-sm); /* Tambah padding untuk title */
+        padding: 0 var(--spacing-xs); /* Tambah padding untuk title */
         text-align: center;
         letter-spacing: -0.01em;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .promo-desc {
         font-size: var(--font-size-text-mobile);
         margin-bottom: var(--spacing-lg);
-        padding: 0 var(--spacing-sm); /* Tambah padding untuk description */
+        padding: 0 var(--spacing-xs); /* Tambah padding untuk description */
         line-height: 1.6;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     .promo-features {
@@ -852,15 +918,25 @@ section {
         background: var(--bg-accent);
         border: 2px solid var(--color-primary);
         box-shadow: var(--shadow-md);
+        padding: var(--spacing-xs); /* Reduced padding */
+        margin: 0; /* Remove margin */
+        flex-shrink: 0; /* Prevent shrinking */
+        min-width: auto; /* Remove min-width */
     }
     
     .hamburger span {
         background: var(--color-primary);
         border-color: var(--color-dark);
+        width: 20px; /* Smaller width */
+        height: 2px; /* Smaller height */
     }
     
     .hamburger:hover span {
         background: var(--color-dark);
+    }
+    
+    .hamburger:hover {
+        transform: scale(1.02); /* Smaller scale */
     }
 }
 
