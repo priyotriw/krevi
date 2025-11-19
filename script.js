@@ -65,28 +65,48 @@ window.addEventListener('load', () => {
     setActiveNavLink();
 });
 
-// Active navigation state management
+// Active navigation state management - Improved and accurate version
 function setActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.pageYOffset;
-
+    
+    // Find the current section more accurately
+    let currentSection = '';
+    let minDistance = Infinity;
+    
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop - 100; // Offset for navbar
         const sectionId = section.getAttribute('id');
         
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
-                }
-            });
+        // Check if section is in viewport
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            currentSection = sectionId;
+        }
+        
+        // Alternative: find closest section to viewport center
+        const sectionCenter = sectionTop + (sectionHeight / 2);
+        const viewportCenter = scrollY + (window.innerHeight / 2);
+        const distance = Math.abs(sectionCenter - viewportCenter);
+        
+        if (distance < minDistance && distance < window.innerHeight / 2) {
+            minDistance = distance;
+            currentSection = sectionId;
         }
     });
+    
+    // Update active states only for current section
+    if (currentSection) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }
 }
 
-// Smooth scroll for navigation links
+// Smooth scroll for navigation links - Keep this but improve
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -113,7 +133,7 @@ hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
 });
 
-// Navbar scroll effect
+// Navbar scroll effect - Add back scroll spy for desktop only
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
@@ -124,8 +144,23 @@ window.addEventListener('scroll', () => {
         navbar.style.backdropFilter = 'blur(10px)';
     }
     
-    // Update active navigation
-    setActiveNavLink();
+    // Add scroll spy for desktop only (not mobile)
+    if (window.innerWidth > 768) {
+        setActiveNavLink();
+    }
+});
+
+// Handle window resize for scroll spy
+window.addEventListener('resize', () => {
+    // Clear active states when switching to mobile
+    if (window.innerWidth <= 768) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+    } else {
+        // Set active state when switching to desktop
+        setActiveNavLink();
+    }
 });
 
 // Intersection Observer for animations
